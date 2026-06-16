@@ -1,0 +1,90 @@
+/* login.css */
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at 10% 20%, rgb(242, 246, 253) 0%, rgb(224, 233, 248) 90.1%);
+  font-family: 'Outfit', sans-serif;
+  color: #1e293b;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+#login h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: -0.025em;
+}
+
+#login form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+#login label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: -0.75rem;
+}
+
+#login input {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #1e293b;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+#login input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+  background: #ffffff;
+}
+
+#login button {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+#login button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+}
+
+#login button:active {
+  transform: translateY(0);
+}

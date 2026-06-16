@@ -1,0 +1,109 @@
+/* addbook.css */
+#add-book-container {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 4rem;
+  border-radius: 1.5rem;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+  margin: 4rem auto;
+}
+
+#add-book-container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #1e293b 0%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#add-book-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+.form-group input {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #1e293b;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.cancel-btn {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.cancel-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}

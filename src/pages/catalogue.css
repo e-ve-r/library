@@ -1,0 +1,143 @@
+/* catalogue.css */
+.catalogue-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  font-family: 'Outfit', sans-serif;
+  color: #1e293b;
+}
+
+.catalogue-header {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #1e293b 0%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.book-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.05), 0 8px 8px -5px rgba(0, 0, 0, 0.03);
+  border-color: #cbd5e1;
+}
+
+.book-card h1 {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 2.5rem;
+  color: #f1f5f9;
+  margin: 0;
+  font-weight: 800;
+  z-index: 1;
+  user-select: none;
+}
+
+.book-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+  z-index: 2;
+  position: relative;
+  max-width: 85%;
+}
+
+.book-detail {
+  font-size: 0.925rem;
+  color: #475569;
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #f1f5f9;
+  padding-bottom: 0.5rem;
+}
+
+.book-detail:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 1.5rem;
+}
+
+.book-detail strong {
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Delete Book Button inside card */
+.book-card button {
+  width: 100%;
+  padding: 0.625rem;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fee2e2;
+  border-radius: 0.75rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.book-card button:hover {
+  background: #dc2626;
+  color: #ffffff;
+  border-color: #dc2626;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+}
+
+.book-card button:active {
+  transform: scale(0.98);
+}
+
+/* Add Book Floating/Main action button */
+.catalogue-page > button {
+  display: block;
+  margin: 0 auto;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 1rem;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.catalogue-page > button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
+}
+
+.catalogue-page > button:active {
+  transform: translateY(0);
+}
