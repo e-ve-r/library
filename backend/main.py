@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -17,7 +17,6 @@ app.add_middleware(
 class GetModel(BaseModel):
     username: str
     password: str
-    role: str
 
 class DeleteModel(BaseModel):
     id: int
@@ -25,54 +24,70 @@ class DeleteModel(BaseModel):
 class PostModel(BaseModel):
     id: int
     title: str
-    author: str
-    year: int
-    genre: str
+    quantity: int
+
+class EditModel(BaseModel):
+    id: int
+    title: str
+    quantity: int
 
 book_db = [
   {
     "id": 1,
     "title": 'The Great Gatsby',
-    "author": 'F. Scott Fitzgerald',
-    "year": 1925,
-    "genre": 'Classic Fiction',
+    "quantity": 4
   },
   {
     "id": 2,
     "title": '1984',
-    "author": 'George Orwell',
-    "year": 1949,
-    "genre": 'Dystopian',
+    "quantity": 3
   },
   {
     "id": 3,
     "title": 'To Kill a Mockingbird',
-    "author": 'Harper Lee',
-    "year": 1960,
-    "genre": 'Historical Fiction',
+    "quantity": 1
   },
   {
     "id": 4,
     "title": 'The Hobbit',
-    "author": 'J.R.R. Tolkien',
-    "year": 1937,
-    "genre": 'Fantasy',
+    "quantity": 5
   },
   {
     "id": 5,
     "title": 'Pride and Prejudice',
-    "author": 'Jane Austen',
-    "year": 1813,
-    "genre": 'Romance',
+    "quantity": 2
   },
 ]
+
+admin_db= [{
+  "username": "ad1",
+  "password": "admin123"
+},
+{"username": "ad2",
+  "password": "admin123"
+}]
+
+student_db= [{
+  "username": "stu1",
+  "password": "stu123"
+},
+{"username": "stu2",
+  "password": "stu123"
+}]
+
 # converts to PostModel object, the data sent by frontend
 
 @app.post("/login")
 def login(user: GetModel):
-    return book_db
+    user_dict = {"username": user.username, "password": user.password}
+    if user_dict in admin_db:
+      return {"books": book_db, "role": "admin", "name":user.username}
+    elif user_dict in student_db:
+      return {"books": book_db, "role": "student"}
+    else:
+      raise HTTPException(status_code=401, detail="Invalid credentials")
 
-@app.delete("/delete")
+@app.delete("/delete/{id}")
 def delete_item(id: int):
     global book_db
     book_db = [
@@ -86,4 +101,14 @@ def delete_item(id: int):
 def login(book: PostModel):
     global book_db
     book_db.append(book)
+    return book_db
+
+
+@app.put("/edit")
+def edit_item(edit: EditModel):
+    global book_db
+    book_db = [
+        edit if book["id"] == edit.id else book
+        for book in book_db
+    ]
     return book_db

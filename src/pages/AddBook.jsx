@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./addbook.css";
+import "./styles/addBook.css";
 
 function AddBook() {
   const navigate = useNavigate();

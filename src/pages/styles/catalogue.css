@@ -90,13 +90,17 @@
   font-weight: 500;
 }
 
-/* Delete Book Button inside card */
+/* Card Actions and Buttons */
+.book-card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  z-index: 2;
+}
+
 .book-card button {
   width: 100%;
   padding: 0.625rem;
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #fee2e2;
   border-radius: 0.75rem;
   font-family: inherit;
   font-size: 0.875rem;
@@ -105,15 +109,126 @@
   transition: all 0.2s ease;
 }
 
-.book-card button:hover {
+.book-card button:active {
+  transform: scale(0.98);
+}
+
+.book-card .delete-btn {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fee2e2;
+}
+
+.book-card .delete-btn:hover {
   background: #dc2626;
   color: #ffffff;
   border-color: #dc2626;
   box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
 }
 
-.book-card button:active {
-  transform: scale(0.98);
+.book-card .edit-btn {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #dcfce7;
+}
+
+.book-card .edit-btn:hover {
+  background: #16a34a;
+  color: #ffffff;
+  border-color: #16a34a;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
+}
+
+/* Edit Form Dropdown Container */
+.edit-form-dropdown {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  animation: slideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  position: relative;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.edit-form-dropdown .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.edit-form-dropdown label {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.edit-form-dropdown input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: #1e293b;
+  background-color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.edit-form-dropdown input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.edit-form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.edit-form-actions button {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.825rem;
+}
+
+.edit-form-actions .save-btn {
+  background: #4f46e5;
+  color: #ffffff;
+  border: 1px solid #4f46e5;
+}
+
+.edit-form-actions .save-btn:hover {
+  background: #3730a3;
+  border-color: #3730a3;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+}
+
+.edit-form-actions .cancel-btn {
+  background: #e2e8f0;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+.edit-form-actions .cancel-btn:hover {
+  background: #cbd5e1;
+  color: #1e293b;
 }
 
 /* Add Book Floating/Main action button */

@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./login.css";
+import "./styles/login.css";
 
 // event won't be in the component, only props, events in event handelers
 function LoginPage() {
   // always on top
-  const [submitted_name, setName] = useState("");
-  const [submitted_pass, setPass] = useState("");
-  const [submitted_role, setRole] = useState("");
 
   const navigate = useNavigate();
 
@@ -18,16 +15,10 @@ function LoginPage() {
 
     const username = formData.get("username");
     const password = formData.get("password");
-    const role = formData.get("role");
-
-    setName(username);
-    setPass(password);
-    setRole(role);
 
     const data = {
-      username,
-      password,
-      role,
+      username: username,
+      password: password,
     };
 
     const res = await fetch("http://localhost:8000/login", {
@@ -37,13 +28,19 @@ function LoginPage() {
       },
       body: JSON.stringify(data),
     });
-
-    const result = await res.json();
-    console.log(result);
-    // store JSON string and role for the catalogue
-    localStorage.setItem("result", JSON.stringify(result));
-    localStorage.setItem("role", role || "");
-    navigate("/catalogue");
+    if (res.ok) {
+      const result = await res.json();
+      localStorage.setItem("result", JSON.stringify(result.books));
+      // localStorage.setItem("role", result.role);
+      if (result.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/catalogue");
+      }
+    } else {
+      const err = await res.json();
+      alert(err.detail || "Login failed");
+    }
   }
 
   return (
@@ -55,9 +52,6 @@ function LoginPage() {
 
         <label htmlFor="password">Password</label>
         <input type="text" name="password" />
-
-        <label htmlFor="role">Role</label>
-        <input type="text" name="role" />
 
         <button type="submit">Login</button>
       </form>
