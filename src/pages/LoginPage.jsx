@@ -31,7 +31,7 @@ function LoginPage() {
     if (res.ok) {
       const result = await res.json();
       localStorage.setItem("result", JSON.stringify(result.books));
-      // localStorage.setItem("role", result.role);
+      localStorage.setItem("role", result.role);
       if (result.role === "admin") {
         navigate("/admin");
       } else {

@@ -7,14 +7,14 @@ function AddBook() {
   async function submitBook(event) {
     event.preventDefault();
 
+    // always returns string no matter what
+
     const formData = new FormData(event.target);
     const id = parseInt(formData.get("id"));
     const title = formData.get("title");
-    const author = formData.get("author");
-    const year = parseInt(formData.get("year"));
-    const genre = formData.get("genre");
+    const quantity = parseInt(formData.get("quantity"));
 
-    const newbook = { id, title, author, year, genre };
+    const newbook = { id, title, quantity };
 
     const req = await fetch("http://localhost:8000/add", {
       method: "POST",
@@ -25,7 +25,8 @@ function AddBook() {
     if (req.ok) {
       const res = await req.json();
       localStorage.setItem("result", JSON.stringify(res));
-      navigate("/catalogue");
+      const role = localStorage.getItem("role");
+      navigate(role === "admin" ? "/admin" : "/catalogue");
     } else {
       const err = await req.json();
       alert(err.detail || "Failed to add book");
@@ -53,35 +54,13 @@ function AddBook() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="author">Author</label>
+          <label htmlFor="year">Quantity</label>
           <input
-            type="text"
-            name="author"
-            id="author"
+            type="number"
+            name="quantity"
+            id="quantity"
             required
-            placeholder="e.g. William Shakespeare"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="year">Published Year</label>
-          <input
-            type="text"
-            name="year"
-            id="year"
-            required
-            placeholder="e.g. 1603"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="genre">Genre</label>
-          <input
-            type="text"
-            name="genre"
-            id="genre"
-            required
-            placeholder="e.g. Tragedy"
+            placeholder="e.g. 2"
           />
         </div>
 
@@ -89,7 +68,10 @@ function AddBook() {
           <button
             type="button"
             className="cancel-btn"
-            onClick={() => navigate("/catalogue")}
+            onClick={() => {
+              const role = localStorage.getItem("role");
+              navigate(role === "admin" ? "/admin" : "/catalogue");
+            }}
           >
             Cancel
           </button>

@@ -14,7 +14,7 @@ app.add_middleware(
 
 # the frontend parameters like username, password and role should match with backend naming
 
-class GetModel(BaseModel):
+class LoginModel(BaseModel):
     username: str
     password: str
 
@@ -78,7 +78,7 @@ student_db= [{
 # converts to PostModel object, the data sent by frontend
 
 @app.post("/login")
-def login(user: GetModel):
+def login(user: LoginModel):
     user_dict = {"username": user.username, "password": user.password}
     if user_dict in admin_db:
       return {"books": book_db, "role": "admin", "name":user.username}
@@ -98,17 +98,19 @@ def delete_item(id: int):
     return book_db
 
 @app.post("/add")
-def login(book: PostModel):
+def add_item(book: PostModel):
     global book_db
-    book_db.append(book)
+    book_db.append(book.model_dump())
     return book_db
 
 
-@app.put("/edit")
-def edit_item(edit: EditModel):
+@app.put("/edit/{id}")
+def edit_item(id: int, new_book: EditModel):
     global book_db
     book_db = [
-        edit if book["id"] == edit.id else book
+        new_book.model_dump()
+        if book["id"] == id
+        else book
         for book in book_db
     ]
     return book_db

@@ -8,14 +8,14 @@ function Catalogue() {
   );
 
   const navigate = useNavigate();
-  // const role = localStorage.getItem("role") || "";
+  const role = localStorage.getItem("role") || "";
 
   async function handleDelete(id) {
-    const req = await fetch(`http://localhost:8000/delete?id=${id}`, {
+    const req = await fetch(`http://localhost:8000/delete/${id}`, {
       method: "DELETE",
     });
     const res = await req.json();
-    setResult(res);
+    setBookResult(res);
     localStorage.setItem("result", JSON.stringify(res));
   }
 
@@ -26,7 +26,7 @@ function Catalogue() {
       body: JSON.stringify(edit),
     });
     const res = await req.json();
-    setResult(res);
+    setBookResult(res);
     localStorage.setItem("result", JSON.stringify(res));
   }
 
@@ -39,19 +39,20 @@ function Catalogue() {
             {/* <h1>{book.id}</h1> */}
             <h2 className="book-title">{book.title}</h2>
             {/* conditional rendering */}
-            {/* {role === "admin" && (
+            {role === "admin" && (
               <button
+                className="delete-btn"
                 onClick={() => {
                   handleDelete(book.id);
                 }}
               >
                 Delete Book
               </button>
-            )} */}
+            )}
           </article>
         ))}
       </div>
-      {/* {role === "admin" && (
+      {role === "admin" && (
         <button
           onClick={() => {
             navigate("/add");
@@ -59,7 +60,7 @@ function Catalogue() {
         >
           Add Book
         </button>
-      )} */}
+      )}
     </div>
   );
 }
