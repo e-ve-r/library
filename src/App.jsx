@@ -1,4 +1,4 @@
-import Catalogue from "./pages/Catalogue";
+import StudentPage from "./pages/StudentPage";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
@@ -8,7 +8,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-      <Route path="/catalogue" element={<Catalogue />} />
+      <Route path="/StudentPage" element={<StudentPage />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/add" element={<AddBook />} />
       <Route path="*" element="Page Not Found!" />

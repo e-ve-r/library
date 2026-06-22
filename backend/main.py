@@ -34,58 +34,77 @@ class EditModel(BaseModel):
 book_db = [
   {
     "id": 1,
-    "title": 'The Great Gatsby',
+    "title": 'Quantum Computing',
     "quantity": 4
   },
   {
     "id": 2,
-    "title": '1984',
+    "title": 'Machine Learning',
     "quantity": 3
   },
   {
     "id": 3,
-    "title": 'To Kill a Mockingbird',
+    "title": 'Java',
     "quantity": 1
   },
   {
     "id": 4,
-    "title": 'The Hobbit',
+    "title": 'DSA',
     "quantity": 5
   },
   {
     "id": 5,
-    "title": 'Pride and Prejudice',
+    "title": 'C++',
     "quantity": 2
   },
 ]
 
 admin_db= [{
   "username": "ad1",
-  "password": "admin123"
+  "password": "admin123",
+  "role":"admin"
 },
 {"username": "ad2",
-  "password": "admin123"
+  "password": "admin123",
+  "role":"admin"
 }]
 
 student_db= [{
   "username": "stu1",
-  "password": "stu123"
+  "password": "student123",
+  "role":"student",
+  "overdues": True
 },
 {"username": "stu2",
-  "password": "stu123"
+  "password": "student123",
+  "role":"student",
+  "overdues": False
 }]
 
-# converts to PostModel object, the data sent by frontend
 
+# Note: eg. user.usename matches directly to the naming convention in the pydantic model as well as to the data coming from frontend
 @app.post("/login")
 def login(user: LoginModel):
-    user_dict = {"username": user.username, "password": user.password}
-    if user_dict in admin_db:
-      return {"books": book_db, "role": "admin", "name":user.username}
-    elif user_dict in student_db:
-      return {"books": book_db, "role": "student"}
-    else:
-      raise HTTPException(status_code=401, detail="Invalid credentials")
+  # retuning book, role and name as dictionary 
+  # note: user is an pydantic: LoginModel object and not a dictionary
+    
+    for each_entry in admin_db:
+      if user.username == each_entry["username"] and user.password == each_entry["password"]:
+        return{
+          "books": book_db,
+          "role": "admin",
+          "username":each_entry["username"]
+        }
+
+    for each_entry in student_db:
+      if user.username == each_entry["username"] and user.password == each_entry["password"]:
+        return{
+          "books": book_db,
+          "role": "student",
+          "username":each_entry["username"],
+          "overdues":each_entry["overdues"]
+        }
+    raise HTTPException(status_code=404, detail="Item not found")
 
 @app.delete("/delete/{id}")
 def delete_item(id: int):

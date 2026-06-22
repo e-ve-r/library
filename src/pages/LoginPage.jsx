@@ -31,11 +31,14 @@ function LoginPage() {
     if (res.ok) {
       const result = await res.json();
       localStorage.setItem("result", JSON.stringify(result.books));
-      localStorage.setItem("role", result.role);
+      localStorage.setItem("role", JSON.stringify(result.role));
+      localStorage.setItem("username", JSON.stringify(result.username));
+
       if (result.role === "admin") {
         navigate("/admin");
       } else {
-        navigate("/catalogue");
+        localStorage.setItem("overdues", JSON.stringify(result.overdues));
+        navigate("/StudentPage");
       }
     } else {
       const err = await res.json();

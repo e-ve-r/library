@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./styles/catalogue.css";
+import "./styles/StudentPage.css";
 import { useNavigate } from "react-router-dom";
 
 function AdminPage() {
@@ -43,8 +43,8 @@ function AdminPage() {
   }
 
   return (
-    <div className="catalogue-page">
-      <h1 className="catalogue-header">Admin Page</h1>
+    <div className="StudentPage-page">
+      <h1 className="StudentPage-header">Admin Page</h1>
       <div className="book-grid">
         {book_result.map((each_book) => (
           <article key={each_book.id} className="book-card">

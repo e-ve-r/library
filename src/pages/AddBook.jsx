@@ -26,7 +26,7 @@ function AddBook() {
       const res = await req.json();
       localStorage.setItem("result", JSON.stringify(res));
       const role = localStorage.getItem("role");
-      navigate(role === "admin" ? "/admin" : "/catalogue");
+      navigate(role === "admin" ? "/admin" : "/StudentPage");
     } else {
       const err = await req.json();
       alert(err.detail || "Failed to add book");
@@ -70,7 +70,7 @@ function AddBook() {
             className="cancel-btn"
             onClick={() => {
               const role = localStorage.getItem("role");
-              navigate(role === "admin" ? "/admin" : "/catalogue");
+              navigate(role === "admin" ? "/admin" : "/StudentPage");
             }}
           >
             Cancel
