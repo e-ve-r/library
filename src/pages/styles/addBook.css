@@ -1,32 +1,37 @@
-/* addbook.css */
+/* addBook.css */
+@import "./variables.css";
+
+body {
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+}
+
 #add-book-container {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 4rem;
-  border-radius: 1.5rem;
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.05),
-    0 1px 3px rgba(0, 0, 0, 0.02);
+  background: var(--white);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 3rem 2.5rem;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
   width: 100%;
-  max-width: 500px;
+  max-width: 480px;
   box-sizing: border-box;
   margin: 4rem auto;
 }
 
 #add-book-container h1 {
-  font-size: 2rem;
+  font-size: 1.85rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-color);
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 2.25rem;
   text-align: center;
-  letter-spacing: -0.025em;
-  background: linear-gradient(135deg, #1e293b 0%, #4f46e5 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  border-bottom: var(--border-width) solid var(--border-color);
+  padding-bottom: 1rem;
 }
 
 #add-book-container form {
@@ -42,26 +47,30 @@
 }
 
 .form-group label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .form-group input {
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  border: 1px solid #cbd5e1;
-  background: #ffffff;
+  padding: 0.85rem 1rem;
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid var(--border-color);
+  background: var(--white);
   font-family: inherit;
-  font-size: 0.95rem;
-  color: #1e293b;
-  transition: all 0.2s ease-in-out;
+  font-size: 1rem;
+  color: var(--text-color);
+  transition: all 0.15s ease-in-out;
   outline: none;
 }
 
 .form-group input:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+  background: var(--white);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--lavender-dark);
+  transform: translate(-3px, -3px);
 }
 
 .button-group {
@@ -72,38 +81,51 @@
 
 .button-group button {
   flex: 1;
-  padding: 0.75rem 1rem;
+  padding: 0.9rem 1.25rem;
   font-family: inherit;
   font-size: 1rem;
-  font-weight: 600;
-  border-radius: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid var(--border-color);
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+
+.button-group button:active {
+  transform: translate(2px, 2px);
 }
 
 .cancel-btn {
-  background: #f1f5f9;
-  color: #475569;
-  border: 1px solid #e2e8f0;
+  background: var(--rose-light);
+  color: var(--rose-red);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
 }
 
 .cancel-btn:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+  background: var(--rose-red);
+  color: var(--white);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0px var(--border-color);
+}
+
+.cancel-btn:active {
+  box-shadow: var(--shadow-offset-active) var(--shadow-offset-active) 0px var(--border-color);
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
-  color: #ffffff;
-  border: none;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  background: var(--lavender);
+  color: var(--text-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
 }
 
 .submit-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+  background: var(--lavender-dark);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0px var(--border-color);
 }
 
 .submit-btn:active {
-  transform: translateY(0);
+  box-shadow: var(--shadow-offset-active) var(--shadow-offset-active) 0px var(--border-color);
 }

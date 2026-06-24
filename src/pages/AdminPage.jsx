@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./styles/StudentPage.css";
 import { useNavigate } from "react-router-dom";
+import { Trash2, Pencil, Plus, LogOut, Check, X } from "lucide-react";
 
 function AdminPage() {
   const navigate = useNavigate();
-  // const books = JSON.parse(localStorage.getItem("result") || "[]");
   const [book_result, setBooks] = useState([]);
-
-  // dynamically shows form when clicked on edit button
-  // bug:track id for each book
-  const [showForm, setShowForm] = useState(false);
+  const [editingBookId, setEditingBookId] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:8000/getbooks")
@@ -23,9 +20,9 @@ function AdminPage() {
     const token = JSON.parse(localStorage.getItem("token") || '""');
     const req = await fetch(`http://localhost:8000/delete/${id}`, {
       method: "DELETE",
-      headers: { 
+      headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     });
     const res = await req.json();
@@ -33,8 +30,6 @@ function AdminPage() {
   }
 
   async function editBook(event, id) {
-    // book edit data
-    // note: event get passed as the first argument by default
     event.preventDefault();
     const formData = new FormData(event.target);
     const book_title = formData.get("title");
@@ -52,7 +47,7 @@ function AdminPage() {
     });
     const res = await req.json();
     setBooks(res);
-    setShowForm(false);
+    setEditingBookId(null);
   }
 
   return (
@@ -65,18 +60,25 @@ function AdminPage() {
           navigate("/");
         }}
       >
+        <LogOut size={16} />
         Logout
       </button>
+
       <div className="book-grid">
         {book_result.map((each_book) => (
           <article key={each_book.id} className="book-card">
-            <h2 className="book-title">{each_book.title}</h2>
-            <p className="book-detail">
-              <strong>Quantity:</strong> {each_book.quantity}
-            </p>
-            <div className="book-card-actions">
+            <div>
+              <h2 className="book-title">{each_book.title}</h2>
+              <div className="book-detail">
+                <strong>Quantity</strong>
+                <span>{each_book.quantity}</span>
+              </div>
+            </div>
+
+            <div className="book-card-actions" style={{ marginBottom: editingBookId === each_book.id ? "1rem" : "0" }}>
               <button
                 className="delete-btn"
+                title="Delete Book"
                 onClick={() => {
                   const userConfirmed = confirm(
                     "Are you sure you want to delete this book?",
@@ -86,25 +88,30 @@ function AdminPage() {
                   }
                 }}
               >
-                Delete Entry
+                <Trash2 size={16} />
+                Delete
               </button>
               <button
                 className="edit-btn"
+                title="Edit Book"
                 onClick={() => {
-                  setShowForm(!showForm);
+                  setEditingBookId(
+                    editingBookId === each_book.id ? null : each_book.id,
+                  );
                 }}
               >
-                Edit Entry
+                <Pencil size={16} />
+                Edit
               </button>
             </div>
 
-            {showForm && (
+            {editingBookId === each_book.id && (
               <form
                 className="edit-form-dropdown"
                 onSubmit={(event) => {
                   editBook(event, each_book.id);
                 }}
-                id="newBook"
+                id={`editForm-${each_book.id}`}
               >
                 <div className="form-field">
                   <label>Book Title</label>
@@ -121,7 +128,7 @@ function AdminPage() {
                   <label>Quantity</label>
                   <input
                     type="number"
-                    placeholder="quantity"
+                    placeholder="Quantity"
                     name="quantity"
                     defaultValue={each_book.quantity}
                     required
@@ -130,13 +137,15 @@ function AdminPage() {
 
                 <div className="edit-form-actions">
                   <button type="submit" className="save-btn">
+                    <Check size={14} />
                     Save
                   </button>
                   <button
                     type="button"
                     className="cancel-btn"
-                    onClick={() => setShowForm(!showForm)}
+                    onClick={() => setEditingBookId(null)}
                   >
+                    <X size={14} />
                     Cancel
                   </button>
                 </div>
@@ -145,7 +154,9 @@ function AdminPage() {
           </article>
         ))}
       </div>
+
       <button className="add-book-btn" onClick={() => navigate("/add")}>
+        <Plus size={18} />
         Add Book
       </button>
     </div>

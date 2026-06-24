@@ -1,0 +1,43 @@
+/* variables.css */
+:root {
+  /* Colors */
+  --lavender-light: #f3f0ff;
+  --lavender-mid: #e9e3ff;
+  --lavender: #d8b4fe;
+  --lavender-dark: #a78bfa;
+  --lavender-deep: #7c3aed;
+
+  --white: #ffffff;
+
+  --rose-light: #fff1f2;
+  --rose: #fda4af;
+  --rose-red: #e11d48;
+  --rose-dark: #be123c;
+
+  --peach-light: #fff7ed;
+  --peach: #ffedd5;
+  --peach-mid: #fed7aa;
+  --peach-dark: #f97316;
+
+  --green-light: #ecfdf5;
+  --green: #a7f3d0;
+  --green-dark: #059669;
+  --green-deep: #065f46;
+
+  /* Neutrals */
+  --bg-color: #fcfbfe;
+  --text-color: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #1e293b;
+  --card-bg: #ffffff;
+
+  /* Boxy design settings */
+  --border-width: 2px;
+  --border-radius: 0px;
+  --shadow-offset: 4px;
+  --shadow-offset-hover: 7px;
+  --shadow-offset-active: 1px;
+
+  /* Font */
+  --font-family: 'Outfit', sans-serif;
+}

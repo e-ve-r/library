@@ -1,87 +1,121 @@
 /* StudentPage.css */
+@import "./variables.css";
+
+body {
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+}
+
 .StudentPage-page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 2rem;
-  font-family: "Outfit", sans-serif;
-  color: #1e293b;
+  padding: 3rem 1.5rem;
   position: relative;
 }
 
 .StudentPage-header {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--text-color);
+  margin-top: 1.5rem;
   margin-bottom: 2.5rem;
   text-align: center;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #1e293b 0%, #4f46e5 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--border-color);
+  display: inline-block;
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
 }
 
+.welcome-banner {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.welcome-banner strong {
+  color: var(--lavender-deep);
+  font-weight: 700;
+  border-bottom: 2px solid var(--lavender-dark);
+}
+
+/* Book Grid (Desktop) and Scrollable (Mobile) */
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
+@media (max-width: 640px) {
+  .book-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.5rem;
+    padding: 1rem 0.5rem 2.5rem 0.5rem;
+    margin: 0 -1rem 3rem -1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--lavender-dark) transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Book Card */
 .book-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 1.25rem;
+  background: var(--white);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
   padding: 1.75rem;
   position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.02),
-    0 2px 4px -1px rgba(0, 0, 0, 0.01);
+  transition: all 0.15s ease-in-out;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 200px;
+}
+
+@media (max-width: 640px) {
+  .book-card {
+    flex: 0 0 85%;
+    min-width: 270px;
+    scroll-snap-align: start;
+  }
 }
 
 .book-card:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 12px 20px -5px rgba(0, 0, 0, 0.05),
-    0 8px 8px -5px rgba(0, 0, 0, 0.03);
-  border-color: #cbd5e1;
-}
-
-.book-card h1 {
-  position: absolute;
-  top: 1rem;
-  right: 1.25rem;
-  font-size: 2.5rem;
-  color: #f1f5f9;
-  margin: 0;
-  font-weight: 800;
-  z-index: 1;
-  user-select: none;
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0px var(--lavender-dark);
 }
 
 .book-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin: 0 0 1rem 0;
-  line-height: 1.4;
-  z-index: 2;
-  position: relative;
-  max-width: 85%;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 1.25rem 0;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 .book-detail {
-  font-size: 0.925rem;
-  color: #475569;
+  font-size: 0.95rem;
+  color: var(--text-color);
   margin: 0.5rem 0;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px dashed #f1f5f9;
-  padding-bottom: 0.5rem;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.75rem;
 }
 
 .book-detail:last-of-type {
@@ -91,72 +125,111 @@
 }
 
 .book-detail strong {
-  color: #64748b;
-  font-weight: 500;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
 }
 
-/* Card Actions and Buttons */
+/* Card Actions */
 .book-card-actions {
   display: flex;
   gap: 0.75rem;
-  margin-top: 1.25rem;
-  z-index: 2;
+  margin-top: auto;
 }
 
-.book-card button {
-  width: 100%;
-  padding: 0.625rem;
-  border-radius: 0.75rem;
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 600;
+/* Action Buttons / Icon Buttons */
+.book-card button,
+.boxy-btn {
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.65rem 1rem;
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid var(--border-color);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
 }
 
-.book-card button:active {
-  transform: scale(0.98);
+.book-card button:active,
+.boxy-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-offset-active) var(--shadow-offset-active) 0px var(--border-color) !important;
 }
 
-.book-card .delete-btn {
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #fee2e2;
+/* Specific button styles */
+.borrow-btn {
+  background: var(--green);
+  color: var(--text-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
 }
 
-.book-card .delete-btn:hover {
-  background: #dc2626;
-  color: #ffffff;
-  border-color: #dc2626;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+.borrow-btn:hover {
+  background: var(--green-dark);
+  color: var(--white);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--border-color);
 }
 
-.book-card .edit-btn {
-  background: #f0fdf4;
-  color: #16a34a;
-  border: 1px solid #dcfce7;
+.borrow-btn.blocked {
+  background: var(--rose-light);
+  color: var(--rose-red);
+  border-color: var(--rose-red);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--rose-red);
+  cursor: not-allowed;
 }
 
-.book-card .edit-btn:hover {
-  background: #16a34a;
-  color: #ffffff;
-  border-color: #16a34a;
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
+.borrow-btn.blocked:hover {
+  transform: none;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--rose-red);
 }
 
-/* Edit Form Dropdown Container */
+.delete-btn {
+  background: var(--rose-light);
+  color: var(--rose-red);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+}
+
+.delete-btn:hover {
+  background: var(--rose-red);
+  color: var(--white);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--border-color);
+}
+
+.edit-btn {
+  background: var(--peach);
+  color: var(--text-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+}
+
+.edit-btn:hover {
+  background: var(--peach-dark);
+  color: var(--white);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--border-color);
+}
+
+/* Edit Form inside Book Card */
 .edit-form-dropdown {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
+  background: var(--lavender-light);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
   padding: 1.25rem;
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
-  animation: slideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 2;
-  position: relative;
+  gap: 1rem;
+  animation: slideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 3px 3px 0px var(--border-color);
 }
 
 @keyframes slideDown {
@@ -177,28 +250,29 @@
 }
 
 .edit-form-dropdown label {
-  font-size: 0.725rem;
-  font-weight: 700;
-  color: #64748b;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .edit-form-dropdown input {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
   font-family: inherit;
-  font-size: 0.875rem;
-  color: #1e293b;
-  background-color: #ffffff;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  background-color: var(--white);
   outline: none;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease-in-out;
 }
 
 .edit-form-dropdown input:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  background: var(--white);
+  box-shadow: 2px 2px 0px var(--lavender-dark);
+  transform: translate(-1px, -1px);
 }
 
 .edit-form-actions {
@@ -209,110 +283,67 @@
 
 .edit-form-actions button {
   flex: 1;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.825rem;
+  padding: 0.6rem;
+  font-size: 0.8rem;
 }
 
 .edit-form-actions .save-btn {
-  background: #4f46e5;
-  color: #ffffff;
-  border: 1px solid #4f46e5;
+  background: var(--green);
+  color: var(--text-color);
+  box-shadow: 3px 3px 0px var(--border-color);
 }
 
 .edit-form-actions .save-btn:hover {
-  background: #3730a3;
-  border-color: #3730a3;
-  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+  background: var(--green-dark);
+  color: var(--white);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--border-color);
 }
 
 .edit-form-actions .cancel-btn {
-  background: #e2e8f0;
-  color: #475569;
-  border: 1px solid #cbd5e1;
+  background: var(--rose-light);
+  color: var(--rose-red);
+  box-shadow: 3px 3px 0px var(--border-color);
 }
 
 .edit-form-actions .cancel-btn:hover {
-  background: #cbd5e1;
-  color: #1e293b;
+  background: var(--rose-red);
+  color: var(--white);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--border-color);
 }
 
-.book-card .borrow-btn {
-  background: #eef2ff;
-  color: #4f46e5;
-  border: 1px solid #e0e7ff;
-}
-
-.book-card .borrow-btn:hover {
-  background: #4f46e5;
-  color: #ffffff;
-  border-color: #4f46e5;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
-}
-
-.welcome-banner {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.15rem;
-  color: #475569;
-}
-
-.welcome-banner strong {
-  color: #4f46e5;
-  font-weight: 600;
-}
-
-/* Add Book Floating/Main action button */
-.add-book-btn {
-  display: block;
-  margin: 0 auto;
-  padding: 0.875rem 2rem;
-  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
-  color: #ffffff;
-  border: none;
-  border-radius: 1rem;
-  font-family: inherit;
-  font-size: 1.05rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
-}
-
-.add-book-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
-}
-
-.add-book-btn:active {
-  transform: translateY(0);
-}
-
-/* Logout Button */
+/* Page Action Buttons (Logout & Add Book) */
 .logout-btn {
   position: absolute;
   top: 3rem;
-  right: 2rem;
-  padding: 0.625rem 1.25rem;
-  background: #fcfcfd;
-  color: #ef4444;
-  border: 1px solid #fee2e2;
-  border-radius: 0.75rem;
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  right: 1.5rem;
+  width: auto !important;
+  background: var(--rose-light) !important;
+  color: var(--rose-red) !important;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
 }
 
 .logout-btn:hover {
-  background: #fef2f2;
-  color: #dc2626;
-  border-color: #fca5a5;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+  background: var(--rose-red) !important;
+  color: var(--white) !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--border-color);
 }
 
-.logout-btn:active {
-  transform: translateY(0) scale(0.98);
+.add-book-btn {
+  display: flex;
+  margin: 2rem auto 0 auto;
+  width: auto !important;
+  padding: 0.85rem 2rem !important;
+  background: var(--lavender) !important;
+  color: var(--text-color) !important;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+  font-size: 1rem !important;
+}
+
+.add-book-btn:hover {
+  background: var(--lavender-dark) !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--border-color);
 }

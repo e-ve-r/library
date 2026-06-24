@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/login.css";
+import { LogIn } from "lucide-react";
 
 // event won't be in the component, only props, events in event handelers
 function LoginPage() {
@@ -64,18 +65,20 @@ function LoginPage() {
       alert(err.detail || "Login failed");
     }
   }
-
   return (
     <div id="login">
       <h1>Welcome to Library Portal</h1>
       <form onSubmit={loginData}>
         <label htmlFor="username">Username</label>
-        <input type="text" name="username" />
+        <input type="text" name="username" required />
 
         <label htmlFor="password">Password</label>
-        <input type="text" name="password" />
+        <input type="password" name="password" required />
 
-        <button type="submit">Login</button>
+        <button type="submit" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
+          <LogIn size={18} />
+          Login
+        </button>
       </form>
     </div>
   );

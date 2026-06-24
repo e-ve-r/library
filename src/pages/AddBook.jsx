@@ -1,13 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/addBook.css";
+import { Plus, X } from "lucide-react";
 
 function AddBook() {
   const navigate = useNavigate();
   async function submitBook(event) {
     event.preventDefault();
-
-    // always returns string no matter what
 
     const formData = new FormData(event.target);
     const id = parseInt(formData.get("id"));
@@ -53,7 +52,7 @@ function AddBook() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="year">Quantity</label>
+          <label htmlFor="quantity">Quantity</label>
           <input
             type="number"
             name="quantity"
@@ -70,10 +69,17 @@ function AddBook() {
             onClick={() => {
               navigate("/admin");
             }}
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
           >
+            <X size={16} />
             Cancel
           </button>
-          <button type="submit" className="submit-btn">
+          <button
+            type="submit"
+            className="submit-btn"
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
+          >
+            <Plus size={16} />
             Add Book
           </button>
         </div>
