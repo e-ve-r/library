@@ -4,16 +4,29 @@ import { useNavigate } from "react-router-dom";
 
 function AdminPage() {
   const navigate = useNavigate();
-  const books = JSON.parse(localStorage.getItem("result") || "[]");
-  const [book_result, setBooks] = useState(books);
+  // const books = JSON.parse(localStorage.getItem("result") || "[]");
+  const [book_result, setBooks] = useState([]);
 
   // dynamically shows form when clicked on edit button
+  // bug:track id for each book
   const [showForm, setShowForm] = useState(false);
 
+  useEffect(() => {
+    fetch("http://localhost:8000/getbooks")
+      .then((res) => res.json())
+      .then((data) => {
+        setBooks(data);
+      });
+  }, []);
+
   async function deleteBook(id) {
+    const token = JSON.parse(localStorage.getItem("token") || '""');
     const req = await fetch(`http://localhost:8000/delete/${id}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
     });
     const res = await req.json();
     setBooks(res);
@@ -45,6 +58,15 @@ function AdminPage() {
   return (
     <div className="StudentPage-page">
       <h1 className="StudentPage-header">Admin Page</h1>
+      <button
+        className="logout-btn"
+        onClick={() => {
+          localStorage.clear();
+          navigate("/");
+        }}
+      >
+        Logout
+      </button>
       <div className="book-grid">
         {book_result.map((each_book) => (
           <article key={each_book.id} className="book-card">
@@ -123,7 +145,9 @@ function AdminPage() {
           </article>
         ))}
       </div>
-      <button onClick={() => navigate("/add")}>Add Book</button>
+      <button className="add-book-btn" onClick={() => navigate("/add")}>
+        Add Book
+      </button>
     </div>
   );
 }

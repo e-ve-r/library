@@ -1,8 +1,36 @@
-from fastapi import FastAPI, HTTPException
+from jose import jwt
+from datetime import datetime, timedelta
+from fastapi import FastAPI, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import os
+from dotenv import load_dotenv
+from fastapi import Header
+
+load_dotenv()
+jwt_key = os.getenv("SECRET_KEY")
+
+hasing_algorithm = "HS256"
 
 app = FastAPI()
+
+def encode_token(data: dict):
+  payload = data.copy()
+  token = jwt.encode(
+      payload,
+      jwt_key,
+      algorithm=hasing_algorithm
+    )
+  return token
+
+def decode_token(token: str):
+  payload = jwt.decode(
+      token,
+      jwt_key,
+      algorithms=[hasing_algorithm] 
+      # there is an extra 's'
+    )
+  return payload
 
 app.add_middleware(
     CORSMiddleware,
@@ -90,31 +118,63 @@ def login(user: LoginModel):
     
     for each_entry in admin_db:
       if user.username == each_entry["username"] and user.password == each_entry["password"]:
-        return{
-          "books": book_db,
-          "role": "admin",
-          "username":each_entry["username"]
+        data_to_be_tokenized = {
+          "username":each_entry["username"],
+          "role":each_entry["role"]
         }
+        token=encode_token(data_to_be_tokenized)
+        return {"token":token}
 
     for each_entry in student_db:
       if user.username == each_entry["username"] and user.password == each_entry["password"]:
-        return{
-          "books": book_db,
-          "role": "student",
+        data_to_be_tokenized = {
           "username":each_entry["username"],
+          "role":each_entry["role"],
           "overdues":each_entry["overdues"]
         }
+        token=encode_token(data_to_be_tokenized)
+        return {"token":token}
     raise HTTPException(status_code=404, detail="Item not found")
 
+# sending token as a body
+# @app.post("/getuser")
+# def get_books(token: str = Body(...)):
+#  payload = decode_token(token)
+#  return payload
+
+# shall be sent as a header
+
+@app.get("/getuser")
+def get_books(authorization: str = Header()):
+  token = authorization.split(" ")[1]
+  payload = decode_token(token)
+  return payload
+
+@app.get("/getbooks")
+def get_books():
+  return book_db
+
+@app.get("/overdues/{username}")
+def get_books(username:str):
+  for stu in student_db:
+    if stu["username"] == username:
+      return stu["overdues"]
+
+# Admin Routes
+
 @app.delete("/delete/{id}")
-def delete_item(id: int):
-    global book_db
-    book_db = [
-        book
-        for book in book_db
-        if book["id"] != id
-    ]
-    return book_db
+def delete_item(id: int, authorization: str = Header()):
+  token = authorization.split(" ")[1]
+  payload = decode_token(token)
+  if payload["role"] != "admin":
+    raise HTTPException(status_code=403,detail="Admins only")
+  global book_db
+  book_db = [
+            book
+            for book in book_db
+            if book["id"] != id
+        ]
+  return book_db
 
 @app.post("/add")
 def add_item(book: PostModel):

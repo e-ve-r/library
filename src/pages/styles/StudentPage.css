@@ -5,6 +5,7 @@
   padding: 3rem 2rem;
   font-family: "Outfit", sans-serif;
   color: #1e293b;
+  position: relative;
 }
 
 .StudentPage-header {
@@ -261,7 +262,7 @@
 }
 
 /* Add Book Floating/Main action button */
-.StudentPage-page > button {
+.add-book-btn {
   display: block;
   margin: 0 auto;
   padding: 0.875rem 2rem;
@@ -277,11 +278,41 @@
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
 }
 
-.StudentPage-page > button:hover {
+.add-book-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
 }
 
-.StudentPage-page > button:active {
+.add-book-btn:active {
   transform: translateY(0);
+}
+
+/* Logout Button */
+.logout-btn {
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+  padding: 0.625rem 1.25rem;
+  background: #fcfcfd;
+  color: #ef4444;
+  border: 1px solid #fee2e2;
+  border-radius: 0.75rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.logout-btn:hover {
+  background: #fef2f2;
+  color: #dc2626;
+  border-color: #fca5a5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+}
+
+.logout-btn:active {
+  transform: translateY(0) scale(0.98);
 }

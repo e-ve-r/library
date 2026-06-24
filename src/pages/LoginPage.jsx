@@ -21,6 +21,8 @@ function LoginPage() {
       password: password,
     };
 
+    // first login
+
     const res = await fetch("http://localhost:8000/login", {
       method: "POST",
       headers: {
@@ -28,17 +30,34 @@ function LoginPage() {
       },
       body: JSON.stringify(data),
     });
+
     if (res.ok) {
       const result = await res.json();
-      localStorage.setItem("result", JSON.stringify(result.books));
-      localStorage.setItem("role", JSON.stringify(result.role));
-      localStorage.setItem("username", JSON.stringify(result.username));
+      localStorage.setItem("token", JSON.stringify(result.token));
 
-      if (result.role === "admin") {
-        navigate("/admin");
+      // get role based navigation
+      const get_user = await fetch("http://localhost:8000/getuser", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${result.token}`,
+        },
+      });
+
+      if (get_user.ok) {
+        const user_details = await get_user.json();
+        localStorage.setItem("username", JSON.stringify(user_details.username));
+        if (user_details.role === "admin") {
+          navigate("/admin");
+        } else {
+          localStorage.setItem(
+            "overdues",
+            JSON.stringify(user_details.overdues),
+          );
+          navigate("/StudentPage");
+        }
       } else {
-        localStorage.setItem("overdues", JSON.stringify(result.overdues));
-        navigate("/StudentPage");
+        const err = await get_user.json();
+        alert(err.detail || "Failed to fetch user details");
       }
     } else {
       const err = await res.json();
